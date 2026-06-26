@@ -1,0 +1,939 @@
+<!DOCTYPE html>
+<html lang="en" id="html-root">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Daniel Rojas Rojas — Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy-950:#070f1f;
+    --navy-900:#0b1f3a;
+    --navy-800:#12294d;
+    --navy-700:#1c3a66;
+    --line:rgba(255,255,255,0.10);
+    --line-strong:rgba(255,255,255,0.20);
+    --bone:#f7f6f3;
+    --bone-dim:#cbd2dd;
+    --amber:#d4a24c;
+    --amber-soft:rgba(212,162,76,0.16);
+    --green:#3fa66b;
+    --green-soft:rgba(63,166,107,0.16);
+    --red:#c44536;
+    --red-soft:rgba(196,69,54,0.16);
+    --display:'Space Grotesk',sans-serif;
+    --mono:'JetBrains Mono',monospace;
+    --body:'Inter',sans-serif;
+  }
+
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--navy-950);
+    color:var(--bone);
+    font-family:var(--body);
+    overflow-x:hidden;
+    background-image:
+      radial-gradient(circle at 15% 0%, rgba(28,58,102,0.45), transparent 55%),
+      radial-gradient(circle at 85% 15%, rgba(212,162,76,0.07), transparent 45%);
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{animation-duration:0.01ms !important; animation-iteration-count:1 !important; transition-duration:0.01ms !important; scroll-behavior:auto !important;}
+  }
+
+  a{color:inherit;}
+  ::selection{background:var(--amber); color:var(--navy-950);}
+
+  /* ---------- utility ---------- */
+  .wrap{max-width:1180px; margin:0 auto; padding:0 32px;}
+  .eyebrow{
+    font-family:var(--mono); font-size:11px; letter-spacing:0.18em; text-transform:uppercase;
+    color:var(--amber); display:flex; align-items:center; gap:10px; font-weight:500;
+  }
+  .eyebrow::before{content:""; width:6px; height:6px; border-radius:50%; background:var(--amber); box-shadow:0 0 0 3px var(--amber-soft); flex:none;}
+  .section-title{font-family:var(--display); font-weight:600; font-size:clamp(28px,4vw,42px); letter-spacing:-0.01em; line-height:1.1;}
+  .section-pad{padding:96px 0;}
+  button:focus-visible, a:focus-visible, [tabindex]:focus-visible{outline:2px solid var(--amber); border-radius:4px;}
+
+  /* ---------- nav ---------- */
+  .topbar{
+    position:fixed; top:0; left:0; right:0; z-index:50;
+    display:flex; align-items:center; justify-content:space-between;
+    padding:18px 32px; backdrop-filter:blur(14px);
+    background:rgba(7,15,31,0.72); border-bottom:1px solid var(--line);
+  }
+  .brand{display:flex; align-items:center; gap:10px; font-family:var(--display); font-weight:600; font-size:15px; letter-spacing:0.01em;}
+  .brand-mark{width:30px; height:30px; border-radius:7px; background:linear-gradient(135deg,var(--amber),#9c7530); display:flex; align-items:center; justify-content:center; font-family:var(--mono); font-weight:700; color:var(--navy-950); font-size:13px;}
+  .navlinks{display:flex; gap:28px; font-size:13px; font-weight:500; color:var(--bone-dim);}
+  .navlinks a{text-decoration:none; transition:color .2s; padding:4px 0;}
+  .navlinks a:hover{color:var(--bone);}
+  .nav-right{display:flex; align-items:center; gap:16px;}
+  .nav-status{display:flex; align-items:center; gap:8px; font-family:var(--mono); font-size:11px; color:var(--green); letter-spacing:0.05em;}
+  .nav-status .dot{width:6px; height:6px; border-radius:50%; background:var(--green); box-shadow:0 0 0 3px var(--green-soft); animation:pulse 2.4s infinite;}
+  @keyframes pulse{0%,100%{opacity:1;} 50%{opacity:.45;}}
+  @media(max-width:760px){.navlinks{display:none;}}
+
+  /* ---------- LANGUAGE TOGGLE BUTTON ---------- */
+  .lang-toggle{
+    font-family:var(--mono); font-size:11.5px; font-weight:700; letter-spacing:0.06em;
+    padding:7px 14px; border-radius:20px; border:1px solid var(--amber);
+    background:var(--amber-soft); color:var(--amber); cursor:pointer;
+    display:flex; align-items:center; gap:7px; transition:all .2s; white-space:nowrap;
+    flex-shrink: 0;
+  }
+  .lang-toggle:hover{background:var(--amber); color:var(--navy-950);}
+  .lang-toggle .globe-icon{font-size:13px; line-height:1;}
+
+  /* ---------- hero ---------- */
+  .hero{
+    min-height:100vh; display:flex; flex-direction:column; justify-content:center;
+    padding:140px 0 80px; position:relative;
+  }
+  .hero-grid{display:grid; grid-template-columns:1.25fr 0.9fr; gap:56px; align-items:end;}
+  @media(max-width:900px){.hero-grid{grid-template-columns:1fr;}}
+  .hero-name{
+    font-family:var(--display); font-weight:700; letter-spacing:-0.02em;
+    font-size:clamp(44px,7vw,84px); line-height:0.98; margin-top:18px;
+  }
+  .hero-name .accent{color:var(--amber);}
+  .hero-role{
+    margin-top:18px; font-size:17px; color:var(--bone-dim); max-width:560px; line-height:1.6;
+  }
+  .hero-role b{color:var(--bone); font-weight:600;}
+  .hero-cta{display:flex; gap:14px; margin-top:34px; flex-wrap:wrap;}
+  .btn{
+    font-family:var(--mono); font-size:12.5px; letter-spacing:0.04em; font-weight:600;
+    padding:13px 22px; border-radius:8px; border:1px solid var(--line-strong); cursor:pointer;
+    text-decoration:none; display:inline-flex; align-items:center; gap:8px; transition:all .2s;
+    background:transparent; color:var(--bone);
+  }
+  .btn-primary{background:var(--amber); color:var(--navy-950); border-color:var(--amber);}
+  .btn-primary:hover{background:#e3b25e; transform:translateY(-1px);}
+  .btn:not(.btn-primary):hover{border-color:var(--amber); color:var(--amber);}
+
+  .readout{
+    border:1px solid var(--line); border-radius:14px; background:rgba(18,41,77,0.45);
+    padding:22px; font-family:var(--mono);
+  }
+  .readout-head{display:flex; justify-content:space-between; align-items:center; font-size:11px; color:var(--bone-dim); letter-spacing:0.1em; text-transform:uppercase; margin-bottom:16px; padding-bottom:14px; border-bottom:1px solid var(--line);}
+  .readout-row{display:flex; justify-content:space-between; align-items:baseline; padding:10px 0; border-bottom:1px dashed var(--line);}
+  .readout-row:last-child{border-bottom:none;}
+  .readout-label{font-size:12px; color:var(--bone-dim);}
+  .readout-val{font-size:20px; font-weight:700; color:var(--bone);}
+  .readout-val.green{color:var(--green);}
+  .readout-val.amber{color:var(--amber);}
+
+  .scrollcue{position:absolute; bottom:28px; left:32px; display:flex; align-items:center; gap:10px; font-family:var(--mono); font-size:10.5px; color:var(--bone-dim); letter-spacing:0.12em;}
+  .scrollcue .line{width:1px; height:30px; background:linear-gradient(var(--amber),transparent); animation:slide 1.8s infinite;}
+  @keyframes slide{0%{transform:translateY(-6px); opacity:0;} 40%{opacity:1;} 100%{transform:translateY(10px); opacity:0;}}
+
+  /* ---------- kpi strip ---------- */
+  .kpi-strip{border-top:1px solid var(--line); border-bottom:1px solid var(--line); background:rgba(11,31,58,0.4);}
+  .kpi-row{display:grid; grid-template-columns:repeat(4,1fr);}
+  @media(max-width:760px){.kpi-row{grid-template-columns:repeat(2,1fr);}}
+  .kpi-cell{padding:34px 28px; border-right:1px solid var(--line); position:relative;}
+  .kpi-cell:last-child{border-right:none;}
+  .kpi-num{font-family:var(--mono); font-weight:700; font-size:clamp(26px,3.4vw,38px); color:var(--amber); display:flex; align-items:baseline; gap:2px;}
+  .kpi-label{margin-top:8px; font-size:12.5px; color:var(--bone-dim); line-height:1.5;}
+
+  /* ---------- section frame ---------- */
+  .frame-head{display:flex; justify-content:space-between; align-items:flex-end; gap:24px; margin-bottom:48px; flex-wrap:wrap;}
+  .frame-head p{color:var(--bone-dim); font-size:14.5px; max-width:420px; line-height:1.6; margin-top:14px;}
+
+  /* ---------- schema map ---------- */
+  .schema-shell{
+    border:1px solid var(--line); border-radius:18px; background:rgba(11,21,41,0.55);
+    padding:8px; position:relative; overflow:hidden;
+  }
+  .schema-shell::before{
+    content:""; position:absolute; inset:0; pointer-events:none; opacity:.5;
+    background-image:linear-gradient(var(--line) 1px, transparent 1px), linear-gradient(90deg, var(--line) 1px, transparent 1px);
+    background-size:42px 42px; mask-image:radial-gradient(circle at 50% 50%, black 0%, transparent 75%);
+  }
+  .schema-canvas{position:relative; width:100%;}
+  .schema-svg{width:100%; height:auto; display:block;}
+  .node-card{cursor:pointer; transition:transform .25s ease;}
+  .node-card:hover{transform:translateY(-3px);}
+  .node-card .node-bg{transition:stroke .2s, filter .2s;}
+  .node-card:hover .node-bg{stroke:var(--amber); filter:drop-shadow(0 0 10px rgba(212,162,76,0.35));}
+  .flow-path{stroke-dasharray:6 6; animation:dash 2.4s linear infinite;}
+  @keyframes dash{to{stroke-dashoffset:-120;}}
+  .pulse-dot{animation:pulse 2.2s infinite;}
+
+  .schema-legend{display:flex; gap:22px; flex-wrap:wrap; padding:18px 18px 10px; font-family:var(--mono); font-size:11px; color:var(--bone-dim);}
+  .legend-item{display:flex; align-items:center; gap:8px;}
+  .legend-dot{width:8px; height:8px; border-radius:50%;}
+
+  .node-detail{
+    margin-top:18px; border:1px solid var(--line); border-radius:14px; padding:26px 28px;
+    background:rgba(18,41,77,0.4); display:none;
+  }
+  .node-detail.active{display:block; animation:fadein .3s ease;}
+  @keyframes fadein{from{opacity:0; transform:translateY(6px);} to{opacity:1; transform:translateY(0);}}
+  .node-detail-head{display:flex; justify-content:space-between; align-items:flex-start; gap:18px; flex-wrap:wrap; margin-bottom:16px;}
+  .node-detail-title{font-family:var(--display); font-weight:600; font-size:22px;}
+  .node-detail-meta{font-family:var(--mono); font-size:11.5px; color:var(--amber); letter-spacing:0.06em; margin-top:6px;}
+  .node-detail-badge{font-family:var(--mono); font-size:11px; padding:6px 12px; border-radius:20px; background:var(--green-soft); color:var(--green); white-space:nowrap;}
+  .node-detail-results{display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin-top:18px;}
+  @media(max-width:700px){.node-detail-results{grid-template-columns:1fr;}}
+  .ndr-item{border:1px solid var(--line); border-radius:10px; padding:14px 16px; font-size:13px; color:var(--bone-dim); line-height:1.5; display:flex; gap:10px; align-items:flex-start;}
+  .ndr-item::before{content:"›"; color:var(--amber); font-weight:700; flex:none;}
+
+  /* ---------- track records ---------- */
+  .tracks{display:grid; grid-template-columns:repeat(2, minmax(0,1fr)); gap:20px; max-width:800px;}
+  @media(max-width:760px){.tracks{grid-template-columns:1fr;}}
+  .track{
+    border:1px solid var(--line); border-radius:14px; padding:26px; cursor:pointer;
+    background:rgba(18,41,77,0.25); transition:border-color .25s, background .25s, transform .25s;
+    position:relative; overflow:hidden;
+  }
+  .track:hover{border-color:var(--line-strong); background:rgba(18,41,77,0.5); transform:translateY(-4px);}
+  .track-icon{width:42px; height:42px; border-radius:10px; background:var(--amber-soft); display:flex; align-items:center; justify-content:center; margin-bottom:18px;}
+  .track h3{font-family:var(--display); font-size:18px; font-weight:600; margin-bottom:6px;}
+  .track .track-meta{font-family:var(--mono); font-size:11px; color:var(--bone-dim); letter-spacing:0.04em; margin-bottom:14px;}
+  .track ul{list-style:none; display:flex; flex-direction:column; gap:9px;}
+  .track li{font-size:13.5px; color:var(--bone-dim); display:flex; gap:9px; line-height:1.5;}
+  .track li::before{content:"✓"; color:var(--green); font-weight:700; flex:none;}
+  .track .bar-row{margin-top:18px; display:flex; align-items:center; gap:10px;}
+  .bar-track{flex:1; height:6px; border-radius:4px; background:rgba(255,255,255,0.08); overflow:hidden;}
+  .bar-fill{height:100%; border-radius:4px; background:linear-gradient(90deg,var(--amber),#e3b25e); width:0%; transition:width 1.2s cubic-bezier(.2,.8,.2,1);}
+  .bar-pct{font-family:var(--mono); font-size:12px; color:var(--amber); font-weight:700; min-width:38px; text-align:right;}
+
+  /* ---------- competencies ---------- */
+  .comp-grid{display:flex; flex-wrap:wrap; gap:10px;}
+  .chip{
+    font-family:var(--mono); font-size:12.5px; padding:9px 16px; border-radius:20px;
+    border:1px solid var(--line-strong); color:var(--bone-dim); cursor:default; transition:all .2s; user-select:none;
+  }
+  .chip:hover{border-color:var(--amber); color:var(--amber); background:var(--amber-soft);}
+  .chip.tier-core{border-color:rgba(212,162,76,0.4); color:var(--amber);}
+
+  .tools-grid{display:grid; grid-template-columns:repeat(auto-fit, minmax(230px,1fr)); gap:24px; margin-top:8px;}
+  .tool-cat-title{font-family:var(--mono); font-size:11px; letter-spacing:0.08em; text-transform:uppercase; color:var(--bone-dim); margin-bottom:12px; padding-bottom:10px; border-bottom:1px solid var(--line);}
+  .tool-cat .comp-grid{gap:8px;}
+  .tool-cat .chip{font-size:11.5px; padding:7px 13px;}
+
+  /* ---------- education ---------- */
+  .edu-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:32px;}
+  @media(max-width:900px){.edu-grid{grid-template-columns:1fr;}}
+  .edu-col-title{display:flex; align-items:center; gap:10px; font-family:var(--display); font-weight:600; font-size:16px; margin-bottom:18px; padding-bottom:14px; border-bottom:1px solid var(--line);}
+  .dot-amber{width:8px; height:8px; border-radius:50%; background:var(--amber); flex:none;}
+  .dot-green{width:8px; height:8px; border-radius:50%; background:var(--green); flex:none;}
+  .edu-item{padding:13px 0; border-bottom:1px dashed var(--line);}
+  .edu-item:last-of-type{border-bottom:none;}
+  .edu-item-title{font-size:13.5px; color:var(--bone); line-height:1.45; font-weight:500;}
+  .edu-item-meta{font-family:var(--mono); font-size:11px; color:var(--amber); margin-top:5px; letter-spacing:0.02em;}
+  .lang-row{display:flex; align-items:center; gap:12px; margin-bottom:16px;}
+  .lang-label{font-size:13px; color:var(--bone-dim); min-width:55px;}
+  .lang-pct{font-family:var(--mono); font-size:11.5px; color:var(--amber); min-width:48px; text-align:right;}
+  .lang-bar{width:0%;}
+
+  /* ---------- footer / contact ---------- */
+  .cta-band{border-top:1px solid var(--line); padding:90px 0; text-align:center; position:relative;}
+  .cta-band h2{font-family:var(--display); font-weight:600; font-size:clamp(28px,4vw,40px); margin-bottom:18px;}
+  .cta-band p{color:var(--bone-dim); max-width:480px; margin:0 auto 32px; font-size:15px; line-height:1.6;}
+  footer{padding:28px 0; border-top:1px solid var(--line); display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px;}
+  footer .fmono{font-family:var(--mono); font-size:11.5px; color:var(--bone-dim); letter-spacing:0.04em;}
+
+  .reveal{opacity:0; transform:translateY(18px); transition:opacity .6s ease, transform .6s ease;}
+  .reveal.in{opacity:1; transform:translateY(0);}
+
+  /* ---------- i18n visibility ---------- */
+  [data-lang]{display:none !important;}
+  .lang-es [data-lang="es"]{display:revert !important;}
+  .lang-en [data-lang="en"]{display:revert !important;}
+  .lang-es ul[data-lang="es"],
+  .lang-en ul[data-lang="en"]{display:flex !important; flex-direction:column; gap:9px;}
+  .lang-es span[data-lang="es"],
+  .lang-en span[data-lang="en"]{display:inline !important;}
+  .lang-es div[data-lang="es"],
+  .lang-en div[data-lang="en"]{display:block !important;}
+  .lang-es .schema-canvas[data-lang="es"],
+  .lang-en .schema-canvas[data-lang="en"]{display:block !important;}
+  .lang-es .comp-grid[data-lang="es"],
+  .lang-en .comp-grid[data-lang="en"]{display:flex !important; flex-wrap:wrap; gap:10px;}
+  .lang-es .tool-cat-title[data-lang="es"],
+  .lang-en .tool-cat-title[data-lang="en"]{display:block !important;}
+
+  /* transition suave al cambiar idioma */
+  body{transition:opacity .15s ease;}
+  body.switching{opacity:0;}
+</style>
+</head>
+<body class="lang-en" id="body-root">
+
+<!-- NAV -->
+<div class="topbar">
+  <div class="brand">
+    <div class="brand-mark">DR</div>
+    Daniel Rojas Rojas
+  </div>
+  <div class="navlinks">
+    <span data-lang="es"><a href="#esquema">Mapa de programas</a><a href="#trayectoria">Trayectoria</a><a href="#educacion">Educación</a><a href="#competencias">Competencias</a><a href="#contacto">Contacto</a></span>
+    <span data-lang="en"><a href="#esquema">Program Map</a><a href="#trayectoria">Track Record</a><a href="#educacion">Education</a><a href="#competencias">Skills</a><a href="#contacto">Contact</a></span>
+  </div>
+  <div class="nav-right">
+    <button class="lang-toggle" id="lang-btn" aria-label="Switch language">
+      <span class="globe-icon">🌐</span>
+      <span data-lang="es">EN</span>
+      <span data-lang="en">ES</span>
+    </button>
+    <div class="nav-status"><span class="dot"></span> CARTAGO, CR</div>
+  </div>
+</div>
+
+<!-- HERO -->
+<section class="hero wrap">
+  <div class="hero-grid">
+    <div>
+      <span class="eyebrow">Project Portfolio · PMO &amp; Service Delivery</span>
+      <h1 class="hero-name">Daniel Rojas<br><span class="accent">Rojas</span></h1>
+      <p class="hero-role" data-lang="es">
+        Coordinador de Proyectos y Analista de PMO <b>bilingüe</b> con más de 5 años de experiencia apoyando proyectos de infraestructura empresarial, gobernanza de PMO y operaciones de entrega de servicios en entornos multinacionales y multi-país (Norteamérica y LATAM). Historial comprobado coordinando equipos multifuncionales durante incidentes de alto impacto e iniciativas de recuperación de servicios a gran escala.
+      </p>
+      <p class="hero-role" data-lang="en">
+        <b>Bilingual</b> Project Coordinator and PMO Analyst with 5+ years of experience supporting enterprise infrastructure projects, PMO governance, and service delivery operations in multinational, multi-country environments (North America and LATAM). Proven track record coordinating cross-functional teams during high-impact incidents and large-scale service recovery initiatives.
+      </p>
+      <div class="hero-cta">
+        <a href="#esquema" class="btn btn-primary" data-lang="es">Ver mapa de programas ↓</a>
+        <a href="#esquema" class="btn btn-primary" data-lang="en">View Program Map ↓</a>
+        <a href="mailto:drojasra@proton.me" class="btn" data-lang="es">Contactar</a>
+        <a href="mailto:drojasra@proton.me" class="btn" data-lang="en">Contact</a>
+      </div>
+    </div>
+    <div class="readout">
+      <div class="readout-head">
+        <span data-lang="es">Contacto directo</span>
+        <span data-lang="en">Direct Contact</span>
+        <span>LIVE</span>
+      </div>
+      <div class="readout-row">
+        <span class="readout-label" data-lang="es">Correo</span>
+        <span class="readout-label" data-lang="en">Email</span>
+        <a href="mailto:drojasra@proton.me" class="readout-val amber" style="font-size:14px; text-decoration:none;">drojasra@proton.me</a>
+      </div>
+      <div class="readout-row">
+        <span class="readout-label" data-lang="es">Teléfono</span>
+        <span class="readout-label" data-lang="en">Phone</span>
+        <span class="readout-val" style="font-size:15px;">+506 6363 2809</span>
+      </div>
+      <div class="readout-row">
+        <span class="readout-label" data-lang="es">Ubicación</span>
+        <span class="readout-label" data-lang="en">Location</span>
+        <span class="readout-val" style="font-size:15px;">Cartago, Costa Rica</span>
+      </div>
+      <div class="readout-row">
+        <span class="readout-label">LinkedIn</span>
+        <a href="https://www.linkedin.com/in/daniel-rojas-rojas-074802189" target="_blank" rel="noopener" class="readout-val green" style="font-size:14px; text-decoration:none;">
+          <span data-lang="es">Ver perfil ↗</span>
+          <span data-lang="en">View Profile ↗</span>
+        </a>
+      </div>
+    </div>
+  </div>
+  <div class="scrollcue">
+    <div class="line"></div>
+    <span data-lang="es">DESPLAZAR</span>
+    <span data-lang="en">SCROLL</span>
+  </div>
+</section>
+
+<!-- KPI STRIP -->
+<section class="kpi-strip">
+  <div class="wrap kpi-row">
+    <div class="kpi-cell">
+      <div class="kpi-num" data-count="10000" data-suffix="+">0</div>
+      <div class="kpi-label" data-lang="es">Clientes corporativos en el portafolio LATAM / EE. UU.</div>
+      <div class="kpi-label" data-lang="en">Corporate clients in LATAM / U.S. portfolio</div>
+    </div>
+    <div class="kpi-cell">
+      <div class="kpi-num" data-count="86" data-suffix="%">0</div>
+      <div class="kpi-label" data-lang="es">Activos recuperados en iniciativa estratégica de salud (EE. UU.)</div>
+      <div class="kpi-label" data-lang="en">Assets recovered in strategic health initiative (U.S.)</div>
+    </div>
+    <div class="kpi-cell">
+      <div class="kpi-num" data-count="5" data-suffix="+">0</div>
+      <div class="kpi-label" data-lang="es">Años de experiencia en proyectos y PMO</div>
+      <div class="kpi-label" data-lang="en">Years of experience in projects and PMO</div>
+    </div>
+    <div class="kpi-cell">
+      <div class="kpi-num" data-count="4" data-suffix="">0</div>
+      <div class="kpi-label" data-lang="es">Continentes coordinados durante incidente mayor (Toyota)</div>
+      <div class="kpi-label" data-lang="en">Continents coordinated during major incident (Toyota)</div>
+    </div>
+  </div>
+</section>
+
+<!-- SCHEMA MAP -->
+<section class="section-pad wrap" id="esquema">
+  <div class="frame-head">
+    <div>
+      <span class="eyebrow" data-lang="es">Mapa del sistema</span>
+      <span class="eyebrow" data-lang="en">System Map</span>
+      <h2 class="section-title" style="margin-top:14px;" data-lang="es">Arquitectura del programa</h2>
+      <h2 class="section-title" style="margin-top:14px;" data-lang="en">Program Architecture</h2>
+      <p data-lang="es">Así fluye el trabajo a través de las organizaciones: cada nodo es un programa real. Haz clic en un nodo para ver sus resultados clave.</p>
+      <p data-lang="en">How work flows across organizations: each node is a real program. Click a node to see its key results.</p>
+    </div>
+  </div>
+
+  <div class="schema-shell reveal">
+    <div class="schema-legend">
+      <span class="legend-item"><span class="legend-dot" style="background:var(--amber)"></span> <span data-lang="es">Programa activo</span><span data-lang="en">Active program</span></span>
+      <span class="legend-item"><span class="legend-dot" style="background:var(--green)"></span> <span data-lang="es">Resultado / Output</span><span data-lang="en">Result / Output</span></span>
+      <span class="legend-item"><span class="legend-dot" style="background:var(--bone-dim)"></span> <span data-lang="es">Flujo de datos y reporting</span><span data-lang="en">Data & reporting flow</span></span>
+    </div>
+
+    <!-- ES SVG -->
+    <div class="schema-canvas" data-lang="es">
+      <svg class="schema-svg" viewBox="0 0 1100 480" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <marker id="arrow-es" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto">
+            <path d="M0,0 L8,4 L0,8 Z" fill="var(--bone-dim)"/>
+          </marker>
+        </defs>
+        <path class="flow-path" d="M 230 110 C 320 110, 340 200, 430 215" stroke="var(--line-strong)" stroke-width="1.5" fill="none" marker-end="url(#arrow-es)"/>
+        <path class="flow-path" d="M 230 340 C 320 340, 340 270, 430 255" stroke="var(--line-strong)" stroke-width="1.5" fill="none" marker-end="url(#arrow-es)"/>
+        <path class="flow-path" d="M 660 220 C 740 220, 750 130, 830 105" stroke="var(--line-strong)" stroke-width="1.5" fill="none" marker-end="url(#arrow-es)"/>
+        <path class="flow-path" d="M 660 240 C 740 240, 750 240, 830 240" stroke="var(--line-strong)" stroke-width="1.5" fill="none" marker-end="url(#arrow-es)"/>
+        <path class="flow-path" d="M 660 260 C 740 260, 750 350, 830 375" stroke="var(--line-strong)" stroke-width="1.5" fill="none" marker-end="url(#arrow-es)"/>
+        <g class="node-card" data-node="hpe" tabindex="0" role="button" aria-label="Ver detalles HPE">
+          <rect class="node-bg" x="40" y="78" width="190" height="84" rx="12" fill="rgba(18,41,77,0.85)" stroke="var(--line-strong)" stroke-width="1.5"/>
+          <circle class="pulse-dot" cx="62" cy="100" r="4" fill="var(--amber)"/>
+          <text x="78" y="104" font-family="JetBrains Mono" font-size="10" letter-spacing="1" fill="var(--bone-dim)">2021 — 2024</text>
+          <text x="62" y="130" font-family="Space Grotesk" font-weight="700" font-size="19" fill="#f7f6f3">HPE</text>
+          <text x="62" y="149" font-family="Inter" font-size="11.5" fill="var(--bone-dim)">Coordinador de Proyectos</text>
+        </g>
+        <g class="node-card" data-node="hp" tabindex="0" role="button" aria-label="Ver detalles HP Inc.">
+          <rect class="node-bg" x="40" y="298" width="190" height="84" rx="12" fill="rgba(18,41,77,0.85)" stroke="var(--line-strong)" stroke-width="1.5"/>
+          <circle class="pulse-dot" cx="62" cy="320" r="4" fill="var(--amber)"/>
+          <text x="78" y="324" font-family="JetBrains Mono" font-size="10" letter-spacing="1" fill="var(--bone-dim)">2024 — 2025</text>
+          <text x="62" y="350" font-family="Space Grotesk" font-weight="700" font-size="19" fill="#f7f6f3">HP Inc.</text>
+          <text x="62" y="369" font-family="Inter" font-size="11.5" fill="var(--bone-dim)">Gerente de Programa</text>
+        </g>
+        <g class="node-card" data-node="governance" tabindex="0" role="button" aria-label="Ver gobernanza KPI/SLA">
+          <rect class="node-bg" x="430" y="185" width="230" height="110" rx="12" fill="rgba(212,162,76,0.10)" stroke="var(--amber)" stroke-width="1.5"/>
+          <text x="452" y="216" font-family="JetBrains Mono" font-size="10" letter-spacing="1.5" fill="var(--amber)">NÚCLEO PMO</text>
+          <text x="452" y="246" font-family="Space Grotesk" font-weight="700" font-size="18" fill="#f7f6f3">Gobernanza de</text>
+          <text x="452" y="268" font-family="Space Grotesk" font-weight="700" font-size="18" fill="#f7f6f3">KPI / SLA</text>
+          <text x="452" y="288" font-family="Inter" font-size="11" fill="var(--bone-dim)">Stakeholders · Riesgo · Reporting</text>
+        </g>
+        <g class="node-card" data-node="sla" tabindex="0" role="button" aria-label="Ver cumplimiento SLA">
+          <rect class="node-bg" x="830" y="48" width="220" height="84" rx="12" fill="rgba(63,166,107,0.10)" stroke="var(--green)" stroke-width="1.5"/>
+          <circle class="pulse-dot" cx="852" cy="70" r="4" fill="var(--green)"/>
+          <text x="868" y="74" font-family="JetBrains Mono" font-size="10" letter-spacing="1" fill="var(--bone-dim)">OUTPUT</text>
+          <text x="852" y="100" font-family="Space Grotesk" font-weight="700" font-size="19" fill="#f7f6f3">95% SLA</text>
+          <text x="852" y="119" font-family="Inter" font-size="11.5" fill="var(--bone-dim)">Cumplimiento alcanzado</text>
+        </g>
+        <g class="node-card" data-node="dashboards" tabindex="0" role="button" aria-label="Ver dashboards ejecutivos">
+          <rect class="node-bg" x="830" y="198" width="220" height="84" rx="12" fill="rgba(63,166,107,0.10)" stroke="var(--green)" stroke-width="1.5"/>
+          <circle class="pulse-dot" cx="852" cy="220" r="4" fill="var(--green)"/>
+          <text x="868" y="224" font-family="JetBrains Mono" font-size="10" letter-spacing="1" fill="var(--bone-dim)">OUTPUT</text>
+          <text x="852" y="250" font-family="Space Grotesk" font-weight="700" font-size="19" fill="#f7f6f3">BI &amp; Datos</text>
+          <text x="852" y="269" font-family="Inter" font-size="11.5" fill="var(--bone-dim)">Reportería ejecutiva</text>
+        </g>
+        <g class="node-card" data-node="recovery" tabindex="0" role="button" aria-label="Ver recuperación de activos">
+          <rect class="node-bg" x="830" y="348" width="220" height="84" rx="12" fill="rgba(63,166,107,0.10)" stroke="var(--green)" stroke-width="1.5"/>
+          <circle class="pulse-dot" cx="852" cy="370" r="4" fill="var(--green)"/>
+          <text x="868" y="374" font-family="JetBrains Mono" font-size="10" letter-spacing="1" fill="var(--bone-dim)">OUTPUT</text>
+          <text x="852" y="400" font-family="Space Grotesk" font-weight="700" font-size="19" fill="#f7f6f3">86% activos</text>
+          <text x="852" y="419" font-family="Inter" font-size="11.5" fill="var(--bone-dim)">Recuperados / mitigados</text>
+        </g>
+      </svg>
+    </div>
+
+    <!-- EN SVG -->
+    <div class="schema-canvas" data-lang="en">
+      <svg class="schema-svg" viewBox="0 0 1100 480" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <marker id="arrow-en" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto">
+            <path d="M0,0 L8,4 L0,8 Z" fill="var(--bone-dim)"/>
+          </marker>
+        </defs>
+        <path class="flow-path" d="M 230 110 C 320 110, 340 200, 430 215" stroke="var(--line-strong)" stroke-width="1.5" fill="none" marker-end="url(#arrow-en)"/>
+        <path class="flow-path" d="M 230 340 C 320 340, 340 270, 430 255" stroke="var(--line-strong)" stroke-width="1.5" fill="none" marker-end="url(#arrow-en)"/>
+        <path class="flow-path" d="M 660 220 C 740 220, 750 130, 830 105" stroke="var(--line-strong)" stroke-width="1.5" fill="none" marker-end="url(#arrow-en)"/>
+        <path class="flow-path" d="M 660 240 C 740 240, 750 240, 830 240" stroke="var(--line-strong)" stroke-width="1.5" fill="none" marker-end="url(#arrow-en)"/>
+        <path class="flow-path" d="M 660 260 C 740 260, 750 350, 830 375" stroke="var(--line-strong)" stroke-width="1.5" fill="none" marker-end="url(#arrow-en)"/>
+        <g class="node-card" data-node="hpe" tabindex="0" role="button" aria-label="View HPE program details">
+          <rect class="node-bg" x="40" y="78" width="190" height="84" rx="12" fill="rgba(18,41,77,0.85)" stroke="var(--line-strong)" stroke-width="1.5"/>
+          <circle class="pulse-dot" cx="62" cy="100" r="4" fill="var(--amber)"/>
+          <text x="78" y="104" font-family="JetBrains Mono" font-size="10" letter-spacing="1" fill="var(--bone-dim)">2021 — 2024</text>
+          <text x="62" y="130" font-family="Space Grotesk" font-weight="700" font-size="19" fill="#f7f6f3">HPE</text>
+          <text x="62" y="149" font-family="Inter" font-size="11.5" fill="var(--bone-dim)">Project Coordinator</text>
+        </g>
+        <g class="node-card" data-node="hp" tabindex="0" role="button" aria-label="View HP Inc. program details">
+          <rect class="node-bg" x="40" y="298" width="190" height="84" rx="12" fill="rgba(18,41,77,0.85)" stroke="var(--line-strong)" stroke-width="1.5"/>
+          <circle class="pulse-dot" cx="62" cy="320" r="4" fill="var(--amber)"/>
+          <text x="78" y="324" font-family="JetBrains Mono" font-size="10" letter-spacing="1" fill="var(--bone-dim)">2024 — 2025</text>
+          <text x="62" y="350" font-family="Space Grotesk" font-weight="700" font-size="19" fill="#f7f6f3">HP Inc.</text>
+          <text x="62" y="369" font-family="Inter" font-size="11.5" fill="var(--bone-dim)">Program Manager</text>
+        </g>
+        <g class="node-card" data-node="governance" tabindex="0" role="button" aria-label="View KPI and SLA governance details">
+          <rect class="node-bg" x="430" y="185" width="230" height="110" rx="12" fill="rgba(212,162,76,0.10)" stroke="var(--amber)" stroke-width="1.5"/>
+          <text x="452" y="216" font-family="JetBrains Mono" font-size="10" letter-spacing="1.5" fill="var(--amber)">PMO CORE</text>
+          <text x="452" y="246" font-family="Space Grotesk" font-weight="700" font-size="18" fill="#f7f6f3">KPI / SLA</text>
+          <text x="452" y="268" font-family="Space Grotesk" font-weight="700" font-size="18" fill="#f7f6f3">Governance</text>
+          <text x="452" y="288" font-family="Inter" font-size="11" fill="var(--bone-dim)">Stakeholders · Risk · Reporting</text>
+        </g>
+        <g class="node-card" data-node="sla" tabindex="0" role="button" aria-label="View SLA compliance details">
+          <rect class="node-bg" x="830" y="48" width="220" height="84" rx="12" fill="rgba(63,166,107,0.10)" stroke="var(--green)" stroke-width="1.5"/>
+          <circle class="pulse-dot" cx="852" cy="70" r="4" fill="var(--green)"/>
+          <text x="868" y="74" font-family="JetBrains Mono" font-size="10" letter-spacing="1" fill="var(--bone-dim)">OUTPUT</text>
+          <text x="852" y="100" font-family="Space Grotesk" font-weight="700" font-size="19" fill="#f7f6f3">95% SLA</text>
+          <text x="852" y="119" font-family="Inter" font-size="11.5" fill="var(--bone-dim)">Compliance achieved</text>
+        </g>
+        <g class="node-card" data-node="dashboards" tabindex="0" role="button" aria-label="View executive dashboards details">
+          <rect class="node-bg" x="830" y="198" width="220" height="84" rx="12" fill="rgba(63,166,107,0.10)" stroke="var(--green)" stroke-width="1.5"/>
+          <circle class="pulse-dot" cx="852" cy="220" r="4" fill="var(--green)"/>
+          <text x="868" y="224" font-family="JetBrains Mono" font-size="10" letter-spacing="1" fill="var(--bone-dim)">OUTPUT</text>
+          <text x="852" y="250" font-family="Space Grotesk" font-weight="700" font-size="19" fill="#f7f6f3">BI &amp; Data</text>
+          <text x="852" y="269" font-family="Inter" font-size="11.5" fill="var(--bone-dim)">Executive reporting</text>
+        </g>
+        <g class="node-card" data-node="recovery" tabindex="0" role="button" aria-label="View asset recovery details">
+          <rect class="node-bg" x="830" y="348" width="220" height="84" rx="12" fill="rgba(63,166,107,0.10)" stroke="var(--green)" stroke-width="1.5"/>
+          <circle class="pulse-dot" cx="852" cy="370" r="4" fill="var(--green)"/>
+          <text x="868" y="374" font-family="JetBrains Mono" font-size="10" letter-spacing="1" fill="var(--bone-dim)">OUTPUT</text>
+          <text x="852" y="400" font-family="Space Grotesk" font-weight="700" font-size="19" fill="#f7f6f3">86% assets</text>
+          <text x="852" y="419" font-family="Inter" font-size="11.5" fill="var(--bone-dim)">Recovered / mitigated</text>
+        </g>
+      </svg>
+    </div>
+
+    <!-- DETAIL PANELS ES -->
+    <div data-lang="es">
+      <div class="node-detail" id="detail-hpe-es">
+        <div class="node-detail-head">
+          <div><div class="node-detail-title">Coordinador de Proyectos — Hewlett Packard Enterprise (HPE)</div><div class="node-detail-meta">JUN 2021 – JUL 2024</div></div>
+          <span class="node-detail-badge">Estados Unidos · Canadá</span>
+        </div>
+        <div class="node-detail-results">
+          <div class="ndr-item">Coordinación de proyectos de infraestructura empresarial e implementación de servidores en EE. UU. y Canadá</div>
+          <div class="ndr-item">Rol clave en el esfuerzo global de recuperación durante un incidente tecnológico mayor que afectó las operaciones de Toyota en cuatro continentes</div>
+          <div class="ndr-item">Gestión de documentación, reportería de estado, identificación de riesgos y escalamiento con equipos técnicos y de negocio</div>
+        </div>
+      </div>
+      <div class="node-detail" id="detail-hp-es">
+        <div class="node-detail-head">
+          <div><div class="node-detail-title">Gerente de Programa — HP Inc.</div><div class="node-detail-meta">AGO 2024 – AGO 2025</div></div>
+          <span class="node-detail-badge">10,000+ clientes</span>
+        </div>
+        <div class="node-detail-results">
+          <div class="ndr-item">Liderazgo de iniciativas de SLA, calidad de servicio y satisfacción del cliente para más de 10,000 clientes corporativos en LATAM y EE. UU.</div>
+          <div class="ndr-item">Coordinación de equipos multifuncionales de operaciones, soporte técnico, cuentas y liderazgo ejecutivo</div>
+          <div class="ndr-item">Dirección de iniciativa de recuperación de activos para una organización de salud en EE. UU., recuperando ~86% de los activos operativos</div>
+        </div>
+      </div>
+      <div class="node-detail" id="detail-governance-es">
+        <div class="node-detail-head">
+          <div><div class="node-detail-title">Núcleo PMO — Gobernanza de KPI / SLA</div><div class="node-detail-meta">FUNCIÓN TRANSVERSAL · CONTINUA</div></div>
+          <span class="node-detail-badge">Capa de control</span>
+        </div>
+        <div class="node-detail-results">
+          <div class="ndr-item">Gestión de stakeholders en entornos multinacionales y multi-país (Norteamérica y LATAM)</div>
+          <div class="ndr-item">Gestión de riesgos e incidencias bajo marcos Agile, Waterfall e Híbridos</div>
+          <div class="ndr-item">Punto de control entre la ejecución de campo y la capa de reportería ejecutiva</div>
+        </div>
+      </div>
+      <div class="node-detail" id="detail-sla-es">
+        <div class="node-detail-head">
+          <div><div class="node-detail-title">Resultado — Cumplimiento de SLA</div><div class="node-detail-meta">SERVICE DELIVERY</div></div>
+          <span class="node-detail-badge">95%</span>
+        </div>
+        <div class="node-detail-results">
+          <div class="ndr-item">95% de cumplimiento alcanzado sobre el total de acuerdos de servicio</div>
+          <div class="ndr-item">Tiempos de respuesta y resolución reducidos de forma medible</div>
+          <div class="ndr-item">Base estable para la confianza del cliente y la continuidad de contratos</div>
+        </div>
+      </div>
+      <div class="node-detail" id="detail-dashboards-es">
+        <div class="node-detail-head">
+          <div><div class="node-detail-title">Resultado — Reportería Ejecutiva y Análisis de Datos</div><div class="node-detail-meta">POWER BI · TABLEAU · SQL</div></div>
+          <span class="node-detail-badge">BI &amp; Datos</span>
+        </div>
+        <div class="node-detail-results">
+          <div class="ndr-item">Soluciones de reportería y visualización de datos para decisiones ejecutivas</div>
+          <div class="ndr-item">Mayor visibilidad operativa del programa para liderazgo</div>
+          <div class="ndr-item">Uso de Power BI, Tableau y SQL para impulsar decisiones basadas en datos</div>
+        </div>
+      </div>
+      <div class="node-detail" id="detail-recovery-es">
+        <div class="node-detail-head">
+          <div><div class="node-detail-title">Resultado — Recuperación de Activos</div><div class="node-detail-meta">INICIATIVA ESTRATÉGICA · SECTOR SALUD (EE. UU.)</div></div>
+          <span class="node-detail-badge">86%</span>
+        </div>
+        <div class="node-detail-results">
+          <div class="ndr-item">Aproximadamente 86% de los activos operativos recuperados</div>
+          <div class="ndr-item">Mitigación de pérdidas financieras significativas para la organización</div>
+          <div class="ndr-item">Gestión de riesgos, comunicación con stakeholders y reportería durante todo el ciclo</div>
+        </div>
+      </div>
+      <p style="text-align:center; font-family:var(--mono); font-size:11px; color:var(--bone-dim); padding:18px; letter-spacing:0.04em;">↑ Haz clic en cualquier nodo del diagrama para expandir sus resultados clave</p>
+    </div>
+
+    <!-- DETAIL PANELS EN -->
+    <div data-lang="en">
+      <div class="node-detail" id="detail-hpe-en">
+        <div class="node-detail-head">
+          <div><div class="node-detail-title">Project Coordinator — Hewlett Packard Enterprise (HPE)</div><div class="node-detail-meta">JUN 2021 – JUL 2024</div></div>
+          <span class="node-detail-badge">United States · Canada</span>
+        </div>
+        <div class="node-detail-results">
+          <div class="ndr-item">Coordinated enterprise infrastructure and server deployment projects across the U.S. and Canada</div>
+          <div class="ndr-item">Key role in the global recovery effort during a major technology incident that impacted Toyota operations across four continents</div>
+          <div class="ndr-item">Managed documentation, status reporting, risk identification, and escalation with technical and business teams</div>
+        </div>
+      </div>
+      <div class="node-detail" id="detail-hp-en">
+        <div class="node-detail-head">
+          <div><div class="node-detail-title">Program Manager — HP Inc.</div><div class="node-detail-meta">AUG 2024 – AUG 2025</div></div>
+          <span class="node-detail-badge">10,000+ clients</span>
+        </div>
+        <div class="node-detail-results">
+          <div class="ndr-item">Led SLA, service quality, and customer satisfaction initiatives for 10,000+ corporate clients across LATAM and the U.S.</div>
+          <div class="ndr-item">Coordinated cross-functional teams across operations, technical support, account management, and executive leadership</div>
+          <div class="ndr-item">Directed asset recovery initiative for a U.S. healthcare organization, recovering ~86% of operational assets</div>
+        </div>
+      </div>
+      <div class="node-detail" id="detail-governance-en">
+        <div class="node-detail-head">
+          <div><div class="node-detail-title">PMO Core — KPI / SLA Governance</div><div class="node-detail-meta">CROSS-FUNCTIONAL · ONGOING</div></div>
+          <span class="node-detail-badge">Control layer</span>
+        </div>
+        <div class="node-detail-results">
+          <div class="ndr-item">Stakeholder management in multinational, multi-country environments (North America and LATAM)</div>
+          <div class="ndr-item">Risk and incident management under Agile, Waterfall, and Hybrid frameworks</div>
+          <div class="ndr-item">Control point between field execution and the executive reporting layer</div>
+        </div>
+      </div>
+      <div class="node-detail" id="detail-sla-en">
+        <div class="node-detail-head">
+          <div><div class="node-detail-title">Output — SLA Compliance</div><div class="node-detail-meta">SERVICE DELIVERY</div></div>
+          <span class="node-detail-badge">95%</span>
+        </div>
+        <div class="node-detail-results">
+          <div class="ndr-item">95% compliance achieved across total service agreements</div>
+          <div class="ndr-item">Response and resolution times measurably reduced</div>
+          <div class="ndr-item">Stable foundation for client trust and contract continuity</div>
+        </div>
+      </div>
+      <div class="node-detail" id="detail-dashboards-en">
+        <div class="node-detail-head">
+          <div><div class="node-detail-title">Output — Executive Reporting & Data Analytics</div><div class="node-detail-meta">POWER BI · TABLEAU · SQL</div></div>
+          <span class="node-detail-badge">BI &amp; Data</span>
+        </div>
+        <div class="node-detail-results">
+          <div class="ndr-item">Reporting and data visualization solutions for executive decision-making</div>
+          <div class="ndr-item">Increased operational program visibility for leadership</div>
+          <div class="ndr-item">Power BI, Tableau, and SQL used to drive data-informed decisions</div>
+        </div>
+      </div>
+      <div class="node-detail" id="detail-recovery-en">
+        <div class="node-detail-head">
+          <div><div class="node-detail-title">Output — Asset Recovery</div><div class="node-detail-meta">STRATEGIC INITIATIVE · HEALTHCARE SECTOR (U.S.)</div></div>
+          <span class="node-detail-badge">86%</span>
+        </div>
+        <div class="node-detail-results">
+          <div class="ndr-item">Approximately 86% of operational assets recovered</div>
+          <div class="ndr-item">Significant financial loss mitigation for the organization</div>
+          <div class="ndr-item">Risk management, stakeholder communication, and reporting throughout the full cycle</div>
+        </div>
+      </div>
+      <p style="text-align:center; font-family:var(--mono); font-size:11px; color:var(--bone-dim); padding:18px; letter-spacing:0.04em;">↑ Click any node in the diagram to expand its key results</p>
+    </div>
+  </div>
+</section>
+
+<!-- TRACK RECORD -->
+<section class="section-pad wrap" id="trayectoria">
+  <div class="frame-head">
+    <div>
+      <span class="eyebrow" data-lang="es">Programas en detalle</span>
+      <span class="eyebrow" data-lang="en">Programs in detail</span>
+      <h2 class="section-title" style="margin-top:14px;" data-lang="es">Trayectoria y resultados</h2>
+      <h2 class="section-title" style="margin-top:14px;" data-lang="en">Track Record & Results</h2>
+      <p data-lang="es">Dos programas centrales en infraestructura empresarial y service delivery, con un mismo enfoque: visibilidad, cumplimiento y mejora continua.</p>
+      <p data-lang="en">Two core programs in enterprise infrastructure and service delivery, with one shared focus: visibility, compliance, and continuous improvement.</p>
+    </div>
+  </div>
+  <div class="tracks">
+    <div class="track reveal" data-bar="86">
+      <div class="track-icon">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--amber)" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+      </div>
+      <h3 data-lang="es">Gerente de Programa (Program Manager)</h3>
+      <h3 data-lang="en">Program Manager</h3>
+      <div class="track-meta" data-lang="es">HP INC. · AGO 2024 – AGO 2025</div>
+      <div class="track-meta" data-lang="en">HP INC. · AUG 2024 – AUG 2025</div>
+      <ul data-lang="es">
+        <li>SLA y satisfacción del cliente para 10,000+ clientes (LATAM/EE.UU.)</li>
+        <li>Recuperación de ~86% de activos en organización de salud (EE. UU.)</li>
+        <li>Reportería ejecutiva y visualización de datos con herramientas BI</li>
+      </ul>
+      <ul data-lang="en">
+        <li>SLA and customer satisfaction for 10,000+ clients (LATAM/U.S.)</li>
+        <li>~86% asset recovery for a U.S. healthcare organization</li>
+        <li>Executive reporting and data visualization with BI tools</li>
+      </ul>
+      <div class="bar-row"><div class="bar-track"><div class="bar-fill"></div></div><div class="bar-pct">86%</div></div>
+    </div>
+    <div class="track reveal" data-bar="100">
+      <div class="track-icon">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--amber)" stroke-width="2"><path d="M4 19h16M7 15v4M12 9v10M17 5v14"/></svg>
+      </div>
+      <h3 data-lang="es">Coordinador de Proyectos</h3>
+      <h3 data-lang="en">Project Coordinator</h3>
+      <div class="track-meta" data-lang="es">HPE · JUN 2021 – JUL 2024</div>
+      <div class="track-meta" data-lang="en">HPE · JUN 2021 – JUL 2024</div>
+      <ul data-lang="es">
+        <li>Infraestructura empresarial e implementación de servidores (EE. UU./Canadá)</li>
+        <li>Coordinación clave en recuperación de incidente global (Toyota, 4 continentes)</li>
+        <li>Liderazgo y capacitación de equipos pequeños</li>
+      </ul>
+      <ul data-lang="en">
+        <li>Enterprise infrastructure and server deployment (U.S./Canada)</li>
+        <li>Key coordination role in global incident recovery (Toyota, 4 continents)</li>
+        <li>Team leadership and training of small teams</li>
+      </ul>
+      <div class="bar-row"><div class="bar-track"><div class="bar-fill"></div></div><div class="bar-pct" data-lang="es">3 años</div><div class="bar-pct" data-lang="en">3 yrs</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- COMPETENCIES -->
+<section class="section-pad wrap" id="competencias">
+  <div class="frame-head">
+    <div>
+      <span class="eyebrow" data-lang="es">Stack de competencias</span>
+      <span class="eyebrow" data-lang="en">Competency Stack</span>
+      <h2 class="section-title" style="margin-top:14px;" data-lang="es">Competencias y herramientas</h2>
+      <h2 class="section-title" style="margin-top:14px;" data-lang="en">Skills & Tools</h2>
+      <p data-lang="es">Marco de trabajo y stack técnico aplicado de forma transversal en los programas anteriores.</p>
+      <p data-lang="en">Working framework and technical stack applied across the programs above.</p>
+    </div>
+  </div>
+  <div class="comp-grid" data-lang="es">
+    <span class="chip tier-core">Coordinación de Proyectos</span><span class="chip tier-core">Gobernanza PMO</span><span class="chip tier-core">Gestión de Stakeholders</span><span class="chip tier-core">Gobernanza de SLA</span><span class="chip tier-core">Seguimiento de KPI</span><span class="chip">Gestión del Ciclo de Vida de Proyectos</span><span class="chip">Agile</span><span class="chip">Waterfall</span><span class="chip">Metodologías Híbridas</span><span class="chip">Gestión de Riesgos e Incidencias</span><span class="chip">Gestión del Cambio</span><span class="chip">Liderazgo de Equipos Multifuncionales</span><span class="chip">Mejora Continua de Procesos</span><span class="chip">Comunicación Bilingüe (EN/ES)</span>
+  </div>
+  <div class="comp-grid" data-lang="en">
+    <span class="chip tier-core">Project Coordination</span><span class="chip tier-core">PMO Governance</span><span class="chip tier-core">Stakeholder Management</span><span class="chip tier-core">SLA Governance</span><span class="chip tier-core">KPI Tracking</span><span class="chip">Project Lifecycle Management</span><span class="chip">Agile</span><span class="chip">Waterfall</span><span class="chip">Hybrid Methodologies</span><span class="chip">Risk & Incident Management</span><span class="chip">Change Management</span><span class="chip">Cross-functional Team Leadership</span><span class="chip">Continuous Process Improvement</span><span class="chip">Bilingual Communication (EN/ES)</span>
+  </div>
+
+  <div class="frame-head" style="margin-top:56px;">
+    <div>
+      <span class="eyebrow" data-lang="es">Habilidades técnicas</span>
+      <span class="eyebrow" data-lang="en">Technical Skills</span>
+      <h2 class="section-title" style="margin-top:14px; font-size:clamp(22px,3vw,30px);" data-lang="es">Stack de herramientas</h2>
+      <h2 class="section-title" style="margin-top:14px; font-size:clamp(22px,3vw,30px);" data-lang="en">Tools Stack</h2>
+    </div>
+  </div>
+  <div class="tools-grid">
+    <div class="tool-cat">
+      <div class="tool-cat-title" data-lang="es">Proyectos &amp; PMO</div>
+      <div class="tool-cat-title" data-lang="en">Projects &amp; PMO</div>
+      <div class="comp-grid"><span class="chip">Jira</span><span class="chip">Trello</span><span class="chip">MS Project</span><span class="chip">MS Office</span><span class="chip">Google Workspace</span></div>
+    </div>
+    <div class="tool-cat">
+      <div class="tool-cat-title" data-lang="es">Datos &amp; Reportería</div>
+      <div class="tool-cat-title" data-lang="en">Data &amp; Reporting</div>
+      <div class="comp-grid"><span class="chip tier-core">Power BI</span><span class="chip tier-core">Tableau</span><span class="chip tier-core">SQL</span><span class="chip">MS Access</span><span class="chip" data-lang="es">Excel Avanzado</span><span class="chip" data-lang="en">Advanced Excel</span></div>
+    </div>
+    <div class="tool-cat">
+      <div class="tool-cat-title" data-lang="es">Sistemas Empresariales</div>
+      <div class="tool-cat-title" data-lang="en">Enterprise Systems</div>
+      <div class="comp-grid"><span class="chip">Salesforce</span><span class="chip">SAP</span><span class="chip">Workday</span><span class="chip">AS400</span></div>
+    </div>
+    <div class="tool-cat">
+      <div class="tool-cat-title" data-lang="es">Colaboración</div>
+      <div class="tool-cat-title" data-lang="en">Collaboration</div>
+      <div class="comp-grid"><span class="chip">MS Teams</span><span class="chip">Zoom</span><span class="chip">Slack</span><span class="chip">Avaya</span></div>
+    </div>
+    <div class="tool-cat">
+      <div class="tool-cat-title" data-lang="es">Adicionales</div>
+      <div class="tool-cat-title" data-lang="en">Additional</div>
+      <div class="comp-grid"><span class="chip">Python</span><span class="chip">GitHub</span><span class="chip" data-lang="es">AutoCAD (Básico)</span><span class="chip" data-lang="en">AutoCAD (Basic)</span><span class="chip">SICOP</span><span class="chip" data-lang="es">Nociones de IA &amp; Ciberseguridad</span><span class="chip" data-lang="en">AI &amp; Cybersecurity Fundamentals</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- EDUCATION -->
+<section class="section-pad wrap" id="educacion">
+  <div class="frame-head">
+    <div>
+      <span class="eyebrow" data-lang="es">Formación</span>
+      <span class="eyebrow" data-lang="en">Background</span>
+      <h2 class="section-title" style="margin-top:14px;" data-lang="es">Educación, certificaciones e idiomas</h2>
+      <h2 class="section-title" style="margin-top:14px;" data-lang="en">Education, Certifications & Languages</h2>
+      <p data-lang="es">Formación académica en curso, certificaciones recientes y dominio bilingüe que sustentan el perfil profesional.</p>
+      <p data-lang="en">Ongoing academic education, recent certifications, and bilingual proficiency underpinning the professional profile.</p>
+    </div>
+  </div>
+  <div class="edu-grid">
+    <div class="edu-col">
+      <div class="edu-col-title"><span class="dot-amber"></span> <span data-lang="es">Educación</span><span data-lang="en">Education</span></div>
+      <div class="edu-item">
+        <div class="edu-item-title" data-lang="es">Lic. en Administración — Énfasis en Gestión de Proyectos y Liderazgo</div>
+        <div class="edu-item-title" data-lang="en">B.A. in Business Administration — Emphasis in Project Management & Leadership</div>
+        <div class="edu-item-meta" data-lang="es">Universidad Central · En curso · Graduación esperada 2027</div>
+        <div class="edu-item-meta" data-lang="en">Universidad Central · In progress · Expected graduation 2027</div>
+      </div>
+      <div class="edu-item">
+        <div class="edu-item-title" data-lang="es">Certificación en Administración (CSAD0138 #2639924)</div>
+        <div class="edu-item-title" data-lang="en">Administration Certification (CSAD0138 #2639924)</div>
+        <div class="edu-item-meta" data-lang="es">Instituto Nacional de Aprendizaje (INA) · Octubre 2025</div>
+        <div class="edu-item-meta" data-lang="en">Instituto Nacional de Aprendizaje (INA) · October 2025</div>
+      </div>
+      <div class="edu-item">
+        <div class="edu-item-title" data-lang="es">Inglés Ejecutivo Especializado para Centros de Contacto</div>
+        <div class="edu-item-title" data-lang="en">Specialized Executive English for Contact Centers</div>
+        <div class="edu-item-meta" data-lang="es">Instituto Nacional de Aprendizaje (INA) · Marzo 2017</div>
+        <div class="edu-item-meta" data-lang="en">Instituto Nacional de Aprendizaje (INA) · March 2017</div>
+      </div>
+    </div>
+    <div class="edu-col">
+      <div class="edu-col-title"><span class="dot-green"></span> <span data-lang="es">Certificaciones</span><span data-lang="en">Certifications</span></div>
+      <div class="edu-item"><div class="edu-item-title" data-lang="es">Gestión de Proyectos Agile</div><div class="edu-item-title" data-lang="en">Agile Project Management</div><div class="edu-item-meta">Google · 2026</div></div>
+      <div class="edu-item"><div class="edu-item-title" data-lang="es">Iniciación de Proyectos: Cómo Iniciar un Proyecto Exitoso</div><div class="edu-item-title" data-lang="en">Project Initiation: Starting a Successful Project</div><div class="edu-item-meta">Google · 2026</div></div>
+      <div class="edu-item"><div class="edu-item-title" data-lang="es">Fundamentos de la Gestión de Proyectos</div><div class="edu-item-title" data-lang="en">Foundations of Project Management</div><div class="edu-item-meta">Google · 2025</div></div>
+      <div class="edu-item"><div class="edu-item-title" data-lang="es">Transformación Estratégica Sostenible</div><div class="edu-item-title" data-lang="en">Sustainable Strategic Transformation</div><div class="edu-item-meta" data-lang="es">INCAE Business School · En curso</div><div class="edu-item-meta" data-lang="en">INCAE Business School · In progress</div></div>
+      <div class="edu-item"><div class="edu-item-title" data-lang="es">Preparación para Certificación PMP</div><div class="edu-item-title" data-lang="en">PMP Certification Preparation</div><div class="edu-item-meta" data-lang="es">MAPO Consultores · En curso</div><div class="edu-item-meta" data-lang="en">MAPO Consultores · In progress</div></div>
+      <div class="edu-item"><div class="edu-item-title" data-lang="es">Manipulación de Datos con SQL · Análisis de Datos · Fundamentos de Python</div><div class="edu-item-title" data-lang="en">Data Manipulation with SQL · Data Analysis · Python Fundamentals</div><div class="edu-item-meta">Instituto Nacional de Aprendizaje (INA)</div></div>
+      <div class="edu-item"><div class="edu-item-title" data-lang="es">Introducción a la Inteligencia Artificial</div><div class="edu-item-title" data-lang="en">Introduction to Artificial Intelligence</div><div class="edu-item-meta">UNED</div></div>
+      <div class="edu-item"><div class="edu-item-title" data-lang="es">Introducción a la Ciberseguridad</div><div class="edu-item-title" data-lang="en">Introduction to Cybersecurity</div><div class="edu-item-meta">Instituto Nacional de Aprendizaje (INA)</div></div>
+    </div>
+    <div class="edu-col">
+      <div class="edu-col-title"><span class="dot-amber"></span> <span data-lang="es">Idiomas &amp; Adicional</span><span data-lang="en">Languages &amp; Additional</span></div>
+      <div class="lang-row">
+        <span class="lang-label" data-lang="es">Español</span><span class="lang-label" data-lang="en">Spanish</span>
+        <div class="bar-track" style="flex:1;"><div class="bar-fill lang-bar" data-pct="100"></div></div>
+        <span class="lang-pct" data-lang="es">Nativo</span><span class="lang-pct" data-lang="en">Native</span>
+      </div>
+      <div class="lang-row">
+        <span class="lang-label" data-lang="es">Inglés</span><span class="lang-label" data-lang="en">English</span>
+        <div class="bar-track" style="flex:1;"><div class="bar-fill lang-bar" data-pct="80"></div></div>
+        <span class="lang-pct">B2+</span>
+      </div>
+      <div class="edu-item" style="margin-top:22px;"><div class="edu-item-title" data-lang="es">Licencia de Conducir Costarricense B1</div><div class="edu-item-title" data-lang="en">Costa Rican Driver's License B1</div></div>
+      <div class="edu-item"><div class="edu-item-title" data-lang="es">Certificación en Primeros Auxilios</div><div class="edu-item-title" data-lang="en">First Aid Certification</div></div>
+      <div class="edu-item"><div class="edu-item-title" data-lang="es">Disponibilidad: Híbrida, Remota y Presencial</div><div class="edu-item-title" data-lang="en">Availability: Hybrid, Remote, and On-site</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-band wrap" id="contacto">
+  <span class="eyebrow" style="justify-content:center;" data-lang="es">Próximo paso</span>
+  <span class="eyebrow" style="justify-content:center;" data-lang="en">Next Step</span>
+  <h2 style="margin-top:18px;" data-lang="es">Conversemos sobre tu próximo programa.</h2>
+  <h2 style="margin-top:18px;" data-lang="en">Let's talk about your next program.</h2>
+  <p data-lang="es">Disponible para roles de PMO, coordinación de proyectos y service delivery en entornos multinacionales. Modalidad híbrida, remota o presencial.</p>
+  <p data-lang="en">Available for PMO, project coordination, and service delivery roles in multinational environments. Hybrid, remote, or on-site.</p>
+  <div class="hero-cta" style="justify-content:center;">
+    <a href="mailto:drojasra@proton.me" class="btn btn-primary">drojasra@proton.me ↗</a>
+    <a href="https://www.linkedin.com/in/daniel-rojas-rojas-074802189" target="_blank" rel="noopener" class="btn" data-lang="es">Ver LinkedIn</a>
+    <a href="https://www.linkedin.com/in/daniel-rojas-rojas-074802189" target="_blank" rel="noopener" class="btn" data-lang="en">View LinkedIn</a>
+    <a href="tel:+50663632809" class="btn">+506 6363 2809</a>
+  </div>
+</section>
+
+<footer class="wrap">
+  <span class="fmono">© 2026 DANIEL ROJAS ROJAS · CARTAGO, COSTA RICA</span>
+  <span class="fmono">drojasra@proton.me · +506 6363 2809</span>
+</footer>
+
+<script>
+  // ---- LANGUAGE TOGGLE ----
+  const body = document.getElementById('body-root');
+  const htmlRoot = document.getElementById('html-root');
+  const btn = document.getElementById('lang-btn');
+  let currentLang = 'en';
+
+  btn.addEventListener('click', () => {
+    body.classList.add('switching');
+    setTimeout(() => {
+      currentLang = currentLang === 'es' ? 'en' : 'es';
+      body.className = body.className.replace(/lang-(es|en)/, 'lang-' + currentLang);
+      htmlRoot.lang = currentLang;
+      // reset detail panels for new lang
+      showDetail('governance');
+      body.classList.remove('switching');
+    }, 150);
+  });
+
+  // ---- KPI COUNTERS ----
+  const animateCounter = (el) => {
+    const target = parseInt(el.dataset.count, 10);
+    const suffix = el.dataset.suffix || '';
+    const dur = 1400;
+    const start = performance.now();
+    const step = (now) => {
+      const p = Math.min((now - start) / dur, 1);
+      const eased = 1 - Math.pow(1 - p, 3);
+      el.textContent = Math.round(eased * target) + suffix;
+      if (p < 1) requestAnimationFrame(step);
+    };
+    requestAnimationFrame(step);
+  };
+
+  // ---- INTERSECTION OBSERVER ----
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('in');
+        if (entry.target.classList.contains('kpi-num') && !entry.target.dataset.done) {
+          entry.target.dataset.done = "1";
+          animateCounter(entry.target);
+        }
+        if (entry.target.classList.contains('track')) {
+          const fill = entry.target.querySelector('.bar-fill');
+          const pct = entry.target.dataset.bar;
+          requestAnimationFrame(() => { fill.style.width = (pct > 100 ? 100 : pct) + '%'; });
+        }
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.25 });
+
+  document.querySelectorAll('.reveal, .kpi-num, .track').forEach(el => observer.observe(el));
+
+  // ---- LANGUAGE BARS ----
+  const langSection = document.getElementById('educacion');
+  if (langSection) {
+    const langObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          document.querySelectorAll('.lang-bar').forEach(bar => {
+            requestAnimationFrame(() => { bar.style.width = bar.dataset.pct + '%'; });
+          });
+          langObserver.disconnect();
+        }
+      });
+    }, { threshold: 0.2 });
+    langObserver.observe(langSection);
+  }
+
+  // ---- SCHEMA NODE CLICK ----
+  function showDetail(key) {
+    ['es', 'en'].forEach(lang => {
+      document.querySelectorAll('.node-detail').forEach(d => {
+        d.classList.toggle('active', d.id === 'detail-' + key + '-' + lang);
+      });
+    });
+  }
+
+  document.querySelectorAll('.node-card').forEach(node => {
+    const key = node.dataset.node;
+    node.addEventListener('click', () => showDetail(key));
+    node.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); showDetail(key); }
+    });
+  });
+
+  setTimeout(() => showDetail('governance'), 400);
+</script>
+
+</body>
+</html>
